@@ -14,7 +14,6 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      // Adjust the data structure to match backend expectations
       const formattedData = {
         ...data,
         profile: {
@@ -24,21 +23,32 @@ const Signup = () => {
           address: data.profile.address,
         },
       };
-      await axios.post("http://localhost:5000/api/v1/users/signup", formattedData);
-      // Handle successful registration
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/users/signup",
+        formattedData
+      );
+      if (response.data.success) {
+        window.location.href = "/login";
+      } else {
+        alert(response.data.message);
+      }
+
       alert("Registration successful!");
     } catch (error) {
       console.error("Registration failed:", error);
       if (error.response) {
-        // Handle server errors
         if (error.response.data && error.response.data.errors) {
           const serverErrors = error.response.data.errors;
-          setApiError(serverErrors.general || "An error occurred. Please try again.");
+          setApiError(
+            serverErrors.general || "An error occurred. Please try again."
+          );
         } else {
           setApiError("An error occurred. Please try again.");
         }
       } else if (error.request) {
-        setApiError("No response from the server. Please check your internet connection.");
+        setApiError(
+          "No response from the server. Please check your internet connection."
+        );
       } else {
         setApiError("Error setting up the request. Please try again.");
       }
@@ -252,6 +262,17 @@ const Signup = () => {
           >
             Sign Up
           </button>
+          <div className="mt-4 text-center">
+            <p className="text-gray-600">
+              Already have an account?{" "}
+              <a
+                href="/login" // Update with the actual path to your login page
+                className="text-blue-600 hover:underline"
+              >
+                Login
+              </a>
+            </p>
+          </div>
         </form>
       </div>
     </div>

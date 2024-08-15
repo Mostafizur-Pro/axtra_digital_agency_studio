@@ -11,36 +11,14 @@ import Signup from "../Pages/Auth/Signup";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Main />}>
         <Route index element={<HomePage />} />
-        {/* <Route
-          path="jobs/create-job"
-          element={
-            <PrivateRoute>
-              <JobForm />
-            </PrivateRoute>
-          }
-        /> */}
-        {/* <Route
-          path="about"
-          element={
-            <PrivateRoute>
-              <AboutPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="contact"
-          element={
-            <PrivateRoute>
-              <ContactPage />
-            </PrivateRoute>
-          }
-        /> */}
+
         <Route>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Signup />} />
@@ -50,19 +28,19 @@ const router = createBrowserRouter(
         <Route
           index
           element={
-            // <PrivateRoute>
-            <Dashboard />
-            // </PrivateRoute>
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
           }
         />
-         <Route
+        <Route
           path="/dashboard/profile"
           element={
-        
+            <PrivateRoute>
               <Profile />
-         
+            </PrivateRoute>
           }
-        /> 
+        />
       </Route>
     </>
   )

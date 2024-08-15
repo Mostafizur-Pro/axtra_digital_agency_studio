@@ -10,6 +10,7 @@ import Login from "../Pages/Auth/Login/Login";
 import Signup from "../Pages/Auth/Signup";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Profile from "../Pages/Dashboard/Profile/Profile";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,10 +51,18 @@ const router = createBrowserRouter(
           index
           element={
             // <PrivateRoute>
-            <Profile />
+            <Dashboard />
             // </PrivateRoute>
           }
         />
+         <Route
+          path="/dashboard/profile"
+          element={
+        
+              <Profile />
+         
+          }
+        /> 
       </Route>
     </>
   )

@@ -1,8 +1,11 @@
 // src/components/Navbar.js
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "../../Context/Authentication";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -62,39 +65,62 @@ const Navbar = () => {
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
-                <a
-                  href="#"
+                <Link
+                  to="/"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Home
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/about"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   About
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/services"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Services
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/contact"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Contact
-                </a>
+                </Link>
+
+                {user && (
+                  <Link
+                    to="/dashboard"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Dashboard
+                  </Link>
+                )}
               </div>
             </div>
             <div className="hidden sm:flex sm:items-center">
-              <a
-                href="/login"
-                className="ml-4 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
-              >
-                Login
-              </a>
+              {user ? (
+                <>
+                  <p>
+                    {user.profile.firstName} {user.profile.lastName}
+                  </p>
+                  <button
+                    onClick={logout}
+                    className="ml-4 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="ml-4 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -104,38 +130,60 @@ const Navbar = () => {
         id="mobile-menu"
       >
         <div className="space-y-1 px-2 pt-2 pb-3">
-          <a
-            href="#"
+          <Link
+            to="/"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             Home
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/about"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             About
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/services"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             Services
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/contact"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             Contact
-          </a>
+          </Link>
+          {user && (
+            <Link
+              to="/dashboard"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Dashboard
+            </Link>
+          )}
         </div>
         <div className="px-2 pt-2 pb-3">
-          <a
-            href="/login"
-            className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-base font-medium"
-          >
-            Login
-          </a>
+          {user ? (
+            <>
+              <p>
+                {user.profile.firstName} {user.profile.lastName}
+              </p>
+              <button
+                onClick={logout}
+                className="w-full px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-base font-medium"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-base font-medium"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

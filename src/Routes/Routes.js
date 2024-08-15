@@ -8,6 +8,8 @@ import Main from "../Layout/Main";
 import HomePage from "../Pages/Home/HomePage";
 import Login from "../Pages/Auth/Login/Login";
 import Signup from "../Pages/Auth/Signup";
+import DashboardLayout from "../Layout/DashboardLayout";
+import Profile from "../Pages/Dashboard/Profile/Profile";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,16 +45,16 @@ const router = createBrowserRouter(
           <Route path="register" element={<Signup />} />
         </Route>
       </Route>
-      {/* <Route path="/jobs" element={<JobLayout />}>
+      <Route path="/dashboard" element={<DashboardLayout />}>
         <Route
           index
           element={
-            <PrivateRoute>
-              <AllJob />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <Profile />
+            // </PrivateRoute>
           }
         />
-      </Route> */}
+      </Route>
     </>
   )
 );

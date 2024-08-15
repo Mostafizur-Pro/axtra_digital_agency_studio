@@ -14,6 +14,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Setting from "../Pages/Dashboard/Setting/Setting";
 import About from "../Pages/About/About";
+import ContactPage from "../Pages/Contact/Contact";
+import Services from "../Pages/Services/Services";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +24,8 @@ const router = createBrowserRouter(
         <Route index element={<HomePage />} />
 
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/services" element={<Services />} />
 
         <Route>
           <Route path="login" element={<Login />} />

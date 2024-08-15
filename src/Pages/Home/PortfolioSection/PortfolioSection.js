@@ -1,6 +1,4 @@
 import React from "react";
-import Swiper from "swiper";
-// import 'swiper/swiper-bundle.min.css';
 
 import portfolioImage1 from "../../../assets/portfolioSection/1.webp";
 import portfolioImage2 from "../../../assets/portfolioSection/2.webp";

@@ -19,9 +19,9 @@ const DashboardLayout = () => {
                 Welcome, {user?.profile.firstName} {user?.profile.lastName}
               </h2>
               <div>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                  Notifications
-                </button>
+                <Link to="/" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                  Home
+                </Link>
               </div>
             </div>
           </header>

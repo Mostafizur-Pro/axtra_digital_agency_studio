@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
-  console.log("dash", users);
+  // console.log("dash", users);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 

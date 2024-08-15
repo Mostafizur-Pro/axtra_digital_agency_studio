@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import Main from "../Layout/Main";
 import HomePage from "../Pages/Home/HomePage";
+import Login from "../Pages/Auth/Login/Login";
+import Signup from "../Pages/Auth/Signup";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,10 +38,10 @@ const router = createBrowserRouter(
             </PrivateRoute>
           }
         /> */}
-        {/* <Route element={<AuthLayout />}>
+        <Route>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-        </Route> */}
+        </Route>
       </Route>
       {/* <Route path="/jobs" element={<JobLayout />}>
         <Route

@@ -56,7 +56,7 @@ const Navbar = () => {
               )}
             </button>
           </div>
-          <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="flex-1 flex items-center justify-between sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0">
               <h1 className="text-2xl font-semibold">AxtraCRUD</h1>
             </div>
@@ -88,11 +88,19 @@ const Navbar = () => {
                 </a>
               </div>
             </div>
+            <div className="hidden sm:flex sm:items-center">
+              <a
+                href="/login"
+                className="ml-4 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium"
+              >
+                Login
+              </a>
+            </div>
           </div>
         </div>
       </div>
       <div
-        className={`sm:hidden ${isMobileMenuOpen ? "block" : "hidden"}`}
+        className={`sm:hidden ${isMobileMenuOpen ? "block " : "hidden"}`}
         id="mobile-menu"
       >
         <div className="space-y-1 px-2 pt-2 pb-3">
@@ -119,6 +127,14 @@ const Navbar = () => {
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             Contact
+          </a>
+        </div>
+        <div className="px-2 pt-2 pb-3">
+          <a
+            href="/login"
+            className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-base font-medium"
+          >
+            Login
           </a>
         </div>
       </div>

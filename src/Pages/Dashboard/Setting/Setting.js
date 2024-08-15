@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../Context/Authentication";
 
 const Settings = () => {
-  const { user, updateUser } = useContext(AuthContext);
-  console.log('data', user)
+  const { user } = useContext(AuthContext);
   const [firstName, setFirstName] = useState(user?.profile.firstName || "");
   const [lastName, setLastName] = useState(user?.profile.lastName || "");
   const [phoneNumber, setPhoneNumber] = useState(
@@ -13,20 +12,31 @@ const Settings = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.profile.firstName || "");
+      setLastName(user.profile.lastName || "");
+      setPhoneNumber(user.profile.phoneNumber || "");
+      setAddress(user.profile.address || "");
+    }
+  }, [user]);
+
   const handleSave = async () => {
     setLoading(true);
     setError("");
 
     try {
       const response = await fetch(
-        `https://axtra-digital-agency-studio-server.vercel.app/api/v1/users/update/${user?._id}`, // Ensure user.id is available
+        `https://axtra-digital-agency-studio-server.vercel.app/api/v1/users/update/${user?._id}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user.token}`, // Ensure you include the token
           },
-          body: JSON.stringify({ firstName, lastName, phoneNumber, address }),
+          body: JSON.stringify({
+            profile: { firstName, lastName, phoneNumber, address },
+          }),
         }
       );
 
@@ -36,10 +46,12 @@ const Settings = () => {
 
       const result = await response.json();
 
-      // Call updateUser to update context
-      // updateUser(result.profile);
+      // Optionally, you can update the user data in context if necessary
+      // updateUser(result);
 
       alert("Profile updated successfully!");
+
+      window.location.reload();
     } catch (error) {
       setError(error.message);
     } finally {

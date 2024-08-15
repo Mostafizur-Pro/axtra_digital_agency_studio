@@ -10,24 +10,23 @@ const Profile = () => {
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Profile</h2>
         <div className="space-y-4">
           <div>
-            <h3 className="text-gray-700 font-medium">First Name:</h3>
-            <p className="text-gray-900">{user?.profile.firstName}</p>
+            <h3 className="text-gray-700 font-bold">Name:</h3>
+            <span className="text-gray-900">
+              {user?.profile.firstName} {user?.profile.lastName}
+            </span>
+          </div>
+
+          <div>
+            <h3 className="text-gray-700 font-bold">Phone Number:</h3>
+            <span className="text-gray-900">{user?.profile.phoneNumber}</span>
           </div>
           <div>
-            <h3 className="text-gray-700 font-medium">Last Name:</h3>
-            <p className="text-gray-900">{user?.profile.lastName}</p>
+            <h3 className="text-gray-700 font-bold">Address:</h3>
+            <span className="text-gray-900">{user?.profile.address}</span>
           </div>
           <div>
-            <h3 className="text-gray-700 font-medium">Phone Number:</h3>
-            <p className="text-gray-900">{user?.profile.phoneNumber}</p>
-          </div>
-          <div>
-            <h3 className="text-gray-700 font-medium">Address:</h3>
-            <p className="text-gray-900">{user?.profile.address}</p>
-          </div>
-          <div>
-            <h3 className="text-gray-700 font-medium">Email:</h3>
-            <p className="text-gray-900">{user?.email}</p>
+            <h3 className="text-gray-700 font-bold">Email:</h3>
+            <span className="text-gray-900">{user?.email}</span>
           </div>
           <div className="mt-6">
             <button

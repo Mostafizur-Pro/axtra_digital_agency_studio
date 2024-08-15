@@ -9,13 +9,15 @@ const DashboardLayout = () => {
     <div>
       <div className="flex h-screen bg-gray-100">
         {/* Sidebar */}
-       <DashboardSidebar/>
+        <DashboardSidebar />
 
         <div className="flex-1 flex flex-col">
           {/* Topbar */}
           <header className="bg-white shadow-md px-6 py-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">Welcome, {user.profile.firstName} {user.profile.lastName}</h2>
+              <h2 className="text-xl font-semibold">
+                Welcome, {user?.profile.firstName} {user?.profile.lastName}
+              </h2>
               <div>
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                   Notifications
@@ -26,7 +28,7 @@ const DashboardLayout = () => {
 
           {/* Main Content */}
           <main className="flex-1 p-6">
-            <Outlet/>
+            <Outlet />
           </main>
         </div>
       </div>

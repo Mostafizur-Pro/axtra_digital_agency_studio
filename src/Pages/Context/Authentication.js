@@ -46,8 +46,35 @@ export const AuthProvider = ({ children }) => {
     sessionStorage.removeItem("accessToken"); // Consistent with token storage
   };
 
+  const updateUser = async (updatedProfile) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/v1/users/update/${user.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(updatedProfile),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
+      }
+
+      const result = await response.json();
+      setUser((prevUser) => ({
+        ...prevUser,
+        profile: result.profile,
+      }));
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
+  };
   return (
-    <AuthContext.Provider value={{ user, logout, loading }}>
+    <AuthContext.Provider value={{ user, logout, loading, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

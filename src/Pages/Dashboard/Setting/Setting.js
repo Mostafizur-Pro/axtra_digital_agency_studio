@@ -1,184 +1,111 @@
-// src/components/Profile.js
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useContext } from "react";
 import AuthContext from "../../Context/Authentication";
 
-const Setting = () => {
-  const { user, logout } = useContext(AuthContext);
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+const Settings = () => {
+  const { user, updateUser } = useContext(AuthContext);
+  console.log('data', user)
+  const [firstName, setFirstName] = useState(user?.profile.firstName || "");
+  const [lastName, setLastName] = useState(user?.profile.lastName || "");
+  const [phoneNumber, setPhoneNumber] = useState(
+    user?.profile.phoneNumber || ""
+  );
+  const [address, setAddress] = useState(user?.profile.address || "");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Fetch user data on component mount
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = sessionStorage.getItem("accessToken");
-        if (!token) {
-          throw new Error("No token found");
-        }
+  const handleSave = async () => {
+    setLoading(true);
+    setError("");
 
-        const response = await axios.get("http://localhost:5000/api/v1/auth/userinfo", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (response.data.user) {
-          setValue("firstName", response.data.user.profile.firstName);
-          setValue("lastName", response.data.user.profile.lastName);
-          setValue("phoneNumber", response.data.user.profile.phoneNumber);
-          setValue("address", response.data.user.profile.address);
-          setValue("email", response.data.user.email);
-        }
-
-        setIsLoading(false); // Set loading to false after fetching data
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-        alert("Failed to fetch user data. Please try again.");
-        setIsLoading(false); // Set loading to false on error
-      }
-    };
-
-    fetchUserData();
-  }, [setValue]);
-
-  const onSubmit = async (data) => {
     try {
-      const token = sessionStorage.getItem("accessToken");
-      const response = await axios.put(
-        "https://axtra-digital-agency-studio-server.vercel.app/api/v1/users/me",
-        { ...data, profile: { ...data } },
+      const response = await fetch(
+        `https://axtra-digital-agency-studio-server.vercel.app/api/v1/users/update/${user?._id}`, // Ensure user.id is available
         {
-          headers: { Authorization: `Bearer ${token}` },
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`, // Ensure you include the token
+          },
+          body: JSON.stringify({ firstName, lastName, phoneNumber, address }),
         }
       );
 
-      if (response.data.success) {
-        alert("Profile updated successfully!");
-      } else {
-        alert(response.data.message);
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
       }
+
+      const result = await response.json();
+
+      // Call updateUser to update context
+      // updateUser(result.profile);
+
+      alert("Profile updated successfully!");
     } catch (error) {
-      console.error("Profile update failed:", error);
-      alert("Profile update failed. Please try again.");
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-teal-400">
-      <div className="max-w-md mx-auto p-6 my-10 bg-white rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800">Edit Profile</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <div className="py-8">
+      <div className="p-6 bg-white rounded-lg shadow-md border border-gray-300">
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">Settings</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        <div className="space-y-4">
           <div>
-            <label htmlFor="firstName" className="block text-gray-700 font-medium text-left">
-              First Name
-            </label>
+            <h3 className="text-gray-700 font-medium">First Name:</h3>
             <input
               type="text"
-              id="firstName"
-              {...register("firstName", {
-                required: "First name is required",
-              })}
-              className={`mt-1 block w-full border rounded-md p-3 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 ${
-                errors.firstName ? "border-red-500 ring-red-500" : "border-gray-300 focus:ring-blue-500"
-              }`}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.firstName && (
-              <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>
-            )}
           </div>
-
           <div>
-            <label htmlFor="lastName" className="block text-gray-700 font-medium text-left">
-              Last Name
-            </label>
+            <h3 className="text-gray-700 font-medium">Last Name:</h3>
             <input
               type="text"
-              id="lastName"
-              {...register("lastName", {
-                required: "Last name is required",
-              })}
-              className={`mt-1 block w-full border rounded-md p-3 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 ${
-                errors.lastName ? "border-red-500 ring-red-500" : "border-gray-300 focus:ring-blue-500"
-              }`}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.lastName && (
-              <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>
-            )}
           </div>
-
           <div>
-            <label htmlFor="phoneNumber" className="block text-gray-700 font-medium text-left">
-              Phone Number
-            </label>
+            <h3 className="text-gray-700 font-medium">Phone Number:</h3>
             <input
               type="text"
-              id="phoneNumber"
-              {...register("phoneNumber", {
-                required: "Phone number is required",
-              })}
-              className={`mt-1 block w-full border rounded-md p-3 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 ${
-                errors.phoneNumber ? "border-red-500 ring-red-500" : "border-gray-300 focus:ring-blue-500"
-              }`}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.phoneNumber && (
-              <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>
-            )}
           </div>
-
           <div>
-            <label htmlFor="address" className="block text-gray-700 font-medium text-left">
-              Address
-            </label>
+            <h3 className="text-gray-700 font-medium">Address:</h3>
             <input
               type="text"
-              id="address"
-              {...register("address", {
-                required: "Address is required",
-              })}
-              className={`mt-1 block w-full border rounded-md p-3 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 ${
-                errors.address ? "border-red-500 ring-red-500" : "border-gray-300 focus:ring-blue-500"
-              }`}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md"
             />
-            {errors.address && (
-              <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>
-            )}
           </div>
-
-          <div>
-            <label htmlFor="email" className="block text-gray-700 font-medium text-left">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Invalid email format",
-                },
-              })}
-              className={`mt-1 block w-full border rounded-md p-3 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 ${
-                errors.email ? "border-red-500 ring-red-500" : "border-gray-300 focus:ring-blue-500"
-              }`}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-            )}
+          <div className="mt-6">
+            <button
+              onClick={handleSave}
+              className={`w-full ${
+                loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600"
+              } text-white py-2 rounded-md shadow-md hover:${
+                loading ? "" : "bg-blue-700"
+              } transition duration-200 ease-in-out`}
+              disabled={loading}
+            >
+              {loading ? "Saving..." : "Save Changes"}
+            </button>
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-md shadow-md hover:bg-blue-700 transition duration-200 ease-in-out"
-          >
-            Save Changes
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Setting;
+export default Settings;

@@ -12,6 +12,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Setting from "../Pages/Dashboard/Setting/Setting";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,14 @@ const router = createBrowserRouter(
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard/settings"
+          element={
+            <PrivateRoute>
+              <Setting />
             </PrivateRoute>
           }
         />

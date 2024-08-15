@@ -16,9 +16,9 @@ const DashboardSidebar = () => {
         <div className="ml-4">
           <h1 className="text-xl font-semibold">
             {" "}
-            {user.profile.firstName} {user.profile.lastName}
+            {user?.profile.firstName} {user?.profile.lastName}
           </h1>
-          <p className="text-sm">{user.email}</p>
+          <p className="text-sm">{user?.email}</p>
         </div>
       </div>
       <nav className="flex-1">
@@ -43,7 +43,7 @@ const DashboardSidebar = () => {
           </li>
           <li>
             <Link
-              to="/settings"
+              to="/dashboard/settings"
               className="flex items-center p-4 hover:bg-gray-700 transition duration-300"
             >
               <FaCog className="mr-3" />

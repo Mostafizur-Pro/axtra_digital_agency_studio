@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-teal-400">
+    <div className="min-h-screen p-10 bg-gradient-to-r from-blue-400 to-teal-400">
       <div className="max-w-md mx-auto p-6 my-10 bg-white rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Login</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

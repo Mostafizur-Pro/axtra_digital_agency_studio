@@ -56,8 +56,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-teal-400">
-      <div className="max-w-lg mx-auto p-6 my-10 bg-white rounded-lg shadow-lg">
+    <div className="min-h-screen p-10 bg-gradient-to-r from-blue-400 to-teal-400">
+      <div className="max-w-md mx-auto p-6 my-10 bg-white rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {apiError && (
@@ -212,8 +212,13 @@ const Signup = () => {
               {...register("password", {
                 required: "Password is required",
                 minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long",
+                  value: 8,
+                  message: "Password must be at least 8 characters long",
+                },
+                pattern: {
+                  value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z]).{8,}$/,
+                  message:
+                    "Password must contain at least one uppercase letter, one number, and be at least 8 characters long",
                 },
               })}
               className={`mt-1 block w-full border rounded-md p-3 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 ${

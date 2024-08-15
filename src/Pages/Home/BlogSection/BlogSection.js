@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './BlogSection.css'
 const BlogSection = () => {
     return (
         <section className="blog__area-3 pb-140 blog__animation">
@@ -87,8 +87,7 @@ const BlogSection = () => {
                                             height="450"
                                             decoding="async"
                                             data-nimg="1"
-                                            className="image-box__item"
-                                            style={{ color: 'transparent', width: 'auto', height: 'auto' }}
+                                            className="image-box__item blog__image"
                                             srcSet="https://axtra-next-agency.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F1.8079d114.jpg&w=384&q=75"
                                             src="https://axtra-next-agency.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F1.8079d114.jpg&w=384&q=75"
                                         />
@@ -122,8 +121,7 @@ const BlogSection = () => {
                                             height="450"
                                             decoding="async"
                                             data-nimg="1"
-                                            className="image-box__item"
-                                            style={{ color: 'transparent', width: 'auto', height: 'auto' }}
+                                            className="image-box__item blog__image"
                                             srcSet="https://axtra-next-agency.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F6.faeeace1.jpg&w=256&q=75"
                                             src="https://axtra-next-agency.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F6.faeeace1.jpg&w=256&q=75"
                                         />

@@ -3,6 +3,8 @@ import HeroSection from "./HeroSection/HeroSection";
 import LargestBrands from "./LargestBrands/LargestBrands";
 import WhoWeAre from "./WhoWeAre/WhoWeAre";
 import ServicesSection from "./Services/Services";
+import PortfolioSection from "./PortfolioSection/PortfolioSection";
+import TestimonialSection from "./TestimonialSection/TestimonialSection";
 
 const HomePage = () => {
   return (
@@ -11,6 +13,9 @@ const HomePage = () => {
       <LargestBrands />
       <WhoWeAre />
       <ServicesSection />
+      <PortfolioSection />
+      <TestimonialSection
+       />
     </div>
   );
 };

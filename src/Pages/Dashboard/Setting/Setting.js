@@ -45,7 +45,7 @@ const Setting = () => {
     try {
       const token = sessionStorage.getItem("accessToken");
       const response = await axios.put(
-        "http://localhost:5000/api/v1/users/me",
+        "https://axtra-digital-agency-studio-server.vercel.app/api/v1/users/me",
         { ...data, profile: { ...data } },
         {
           headers: { Authorization: `Bearer ${token}` },

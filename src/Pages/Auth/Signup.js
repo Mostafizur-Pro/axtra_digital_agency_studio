@@ -24,7 +24,7 @@ const Signup = () => {
         },
       };
       const response = await axios.post(
-        "http://localhost:5000/api/v1/users/signup",
+        "https://axtra-digital-agency-studio-server.vercel.app/api/v1/users/signup",
         formattedData
       );
       if (response.data.success) {

@@ -12,7 +12,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/login",
+        "https://axtra-digital-agency-studio-server.vercel.app/api/v1/auth/login",
         data
       );
 
